@@ -14,6 +14,7 @@
     <SccProjectName />
     <SccLocalPath />
     <Keyword>MFCProj</Keyword>
+    <ProjectName>NovelViewer20</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -132,7 +133,7 @@
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>.\Release\NovelViewer10.exe</OutputFile>
+      <OutputFile>.\Release\NovelViewer20.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
