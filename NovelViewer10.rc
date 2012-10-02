@@ -1,0 +1,274 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 한국어(대한민국) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 18, 1\r\n"
+    "#pragma code_page(949)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\NovelViewer10.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.kor\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\NovelViewer10.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG 0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "ㅋ"
+FONT 9, "굴림"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "판타지볼라고고3영혼을바치다\nVC++6.0 MFC, kuna.wo.tc",IDC_STATIC,40,10,119,26,SS_NOPREFIX
+    LTEXT           "Copyleft (C) 2011",IDC_STATIC,39,40,119,8
+    DEFPUSHBUTTON   "확인",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_NOVELVIEWER10_DIALOG DIALOGEX 0, 0, 322, 200
+STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "NovelViewer v1.0 alpha5"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+END
+
+IDD_SETTINGS DIALOGEX 0, 0, 175, 301
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "설정"
+FONT 9, "굴림", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "확인",IDOK,118,278,50,14
+    PUSHBUTTON      "취소",IDCANCEL,66,278,50,14
+    LTEXT           "알림 : alpha버전 텍스트뷰어는 버그 많음. 최근 열린 파일들 보기, 창 투명도 (정식버전때 지원... 수능끝나고 -_-;). 그러나 프로그램의 자체 버그는 적은 편. 지원되는 옵션도 아직은 미비.\n\n타블렛/UMPC에 최적화되어있음. 더블클릭시 풀스크린모드.",IDC_STATIC,7,7,161,61
+    PUSHBUTTON      "폰트",IDC_BUTTON1,7,81,51,18
+    PUSHBUTTON      "폰트색상",IDC_BUTTON2,61,81,51,18
+    PUSHBUTTON      "배경색상",IDC_BUTTON3,117,81,51,18
+    COMBOBOX        IDC_COMBO1,7,104,161,64,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "자간",IDC_STATIC,7,125,47,12
+    LTEXT           "줄간격",IDC_STATIC,7,140,47,12
+    LTEXT           "들여쓰기",IDC_STATIC,7,156,47,12
+    EDITTEXT        IDC_EDIT1,59,123,109,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT2,59,138,109,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT3,59,153,109,12,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "빈 줄 제거",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,195,161,14
+    LTEXT           "테두리 가로 여백",IDC_STATIC,7,170,47,12
+    EDITTEXT        IDC_EDIT4,59,167,109,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "테두리 세로 여백",IDC_STATIC,7,184,47,12
+    EDITTEXT        IDC_EDIT5,59,181,109,12,ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "책갈피색상",IDC_BUTTON4,117,60,51,18
+    COMBOBOX        IDC_COMBO2,6,258,161,64,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "페이지 수",IDC_STATIC,6,216,47,12
+    LTEXT           "페이지 사이 여백",IDC_STATIC,6,228,47,12
+    CONTROL         "DirectX 가속 사용",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,240,161,14
+    EDITTEXT        IDC_EDIT6,60,214,109,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT7,60,228,109,12,ES_AUTOHSCROLL | ES_NUMBER
+END
+
+IDD_EDIT DIALOG 0, 0, 355, 204
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "보고 있는 파트 수정하기"
+FONT 10, "굴림"
+BEGIN
+    DEFPUSHBUTTON   "적용",IDOK,245,183,50,14
+    PUSHBUTTON      "취소",IDCANCEL,298,183,50,14
+    EDITTEXT        IDC_EDIT1,7,7,341,170,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
+    LTEXT           "수정된 내용은 파일에 곧바로 적용되니 주의하시기 바랍니다. 남은 용량이 부족하면 파일 저장에 문제가 발생할 수 있습니다.",IDC_STATIC,7,182,227,15
+END
+
+IDD_SEARCH DIALOG 0, 0, 187, 45
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "문자열 찾기 (현재 위치~끝, 처음~현재 위치)"
+FONT 9, "굴림"
+BEGIN
+    DEFPUSHBUTTON   "이동",IDOK,130,7,50,14
+    PUSHBUTTON      "취소",IDCANCEL,130,24,50,14
+    EDITTEXT        IDC_EDIT1,7,7,113,14,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041204b0"
+        BEGIN
+            VALUE "Comments", "판타지소설뷰어라능"
+            VALUE "CompanyName", "쿠나쨔응 - kuna.wo.tc"
+            VALUE "FileDescription", "판타지소설뷰어라능"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "NovelViewer10"
+            VALUE "LegalCopyright", "Copyright (C) 2011"
+            VALUE "OriginalFilename", "NovelViewer10.EXE"
+            VALUE "ProductName", "NovelViewer - 판타지소설뷰어"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x412, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_NOVELVIEWER10_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_SETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 168
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 294
+    END
+
+    IDD_EDIT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 348
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 197
+    END
+
+    IDD_SEARCH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 38
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "ㅇㅂㅇ(&A)..."
+END
+
+#endif    // 한국어(대한민국) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE 18, 1
+#pragma code_page(949)
+#endif //_WIN32
+#include "res\NovelViewer10.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.kor\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
