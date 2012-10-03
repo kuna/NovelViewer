@@ -8,10 +8,7 @@ NVCore::NVCore()
 	bpreview = -1;
 	GetCurrentDirectory(255, currDir);
 	
-	// temp
-	NVPageMargin = 20;
-	NVPageCnt = 2;
-	NVUseDirectX = true;
+	initfontWidth();
 }
 NVCore::~NVCore()
 {
@@ -659,7 +656,6 @@ int NVCore::OnLbtnup(CPoint x)
 	// bookmark move!
 	if (bpreview >= 0) {
 		nowPos = previewPos;
-		InvalidateRect(mainWnd, NULL, FALSE);
 	}
 
 	isPressing = false;
@@ -748,23 +744,23 @@ int NVCore::nextlineChar(CDC *pDC, int sPos, bool print, int x, int y)
 			memcpy(buf, fileText+npos, 2*2), buf[2]=L'\0', npos+=2;
 		else
 			memcpy(buf, fileText+npos, 1*2), buf[1]=L'\0', npos++;
-		size = pDC->GetTextExtent(buf, wcslen(buf));
+		int size = getfontWidth(pDC, buf[0]);
 
 		// 화면보다 더 그린 글자가 크면 exit
-		if (wid > gwid - size.cx)
+		if (wid > gwid - size)
 		{
 			npos = _p;
 			break;
 		}
 
 
-		if (print && (x+wid+size.cx>=0 && x+wid<=scr_wid)) {
+		if (print && (x+wid+size>=0 && x+wid<=scr_wid)) {
 			if (!_nvD3DX)
 				pDC->TextOut(x+wid, y, buf);
 			else
 				_nvD3DX->RenderText(x+wid, y, buf);
 		}
-		wid += size.cx + NVfontTextMargin;
+		wid += size + NVfontTextMargin;
 	}
 
 	return (npos - sPos);
@@ -798,15 +794,15 @@ int NVCore::prevlineChar(CDC *pDC, int sPos)
 			memcpy(buf, fileText+npos-1, 2*2), buf[2]=L'\0', npos--;
 		else
 			memcpy(buf, fileText+npos, 1*2), buf[1]=L'\0';
-		size = pDC->GetTextExtent(buf, wcslen(buf));
+		int size = getfontWidth(pDC, buf[0]);
 		
-		if (wid > gwid - size.cx)
+		if (wid > gwid - size)
 		{
 			npos = _p;
 			break;
 		}
 		
-		wid += size.cx + NVfontTextMargin;
+		wid += size + NVfontTextMargin;
 	}
 
 	return (sPos - npos);
@@ -840,4 +836,32 @@ int NVCore::searchText(TCHAR *p, int s, int e)
 		if (memcmp(fileData+i, p, len) == 0)
 			return i;
 	return -1;
+}
+
+void NVCore::initfontWidth()
+{
+	initfontWidth(0, 256*256-1, 0);
+}
+
+void NVCore::initfontWidth(int s, int e, int val)
+{
+	for (int i=s; i<=e; i++) {
+		fontWidth[i] = val;
+	}
+}
+
+int NVCore::getfontWidth(CDC *pDC, TCHAR wchar) {
+	int n = (int)wchar;
+
+	// http://blog.arzz.com/401
+	if (fontWidth[n] == 0) {
+		int wid = pDC->GetTextExtent(wchar).cx;
+		if (n >= 44032 && n <= 55203) {
+			initfontWidth(44032, 55203, wid);
+		} else {
+			fontWidth[n] = wid;
+		}
+	}
+
+	return fontWidth[n];
 }

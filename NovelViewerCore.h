@@ -127,4 +127,10 @@ public:
 	void setParenthWnd(HWND h);
 	void setParentTitle();
 	int searchText(TCHAR *p, int s, int e);
+	
+	void initfontWidth();
+private:
+	int fontWidth[256*256];
+	void initfontWidth(int s, int e, int val);
+	int getfontWidth(CDC *pDC, TCHAR wchar);
 };

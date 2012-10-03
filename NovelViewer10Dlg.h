@@ -24,6 +24,7 @@ public:
 	void resetBorder(bool full);
 	void moveNext();
 	void movePrev();
+	void vaildateWnd();
 
 	CNovelViewer10Dlg(CWnd* pParent = NULL);	// standard constructor
 	BOOL PreTranslateMessage(MSG* pMsg);

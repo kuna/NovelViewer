@@ -244,6 +244,7 @@ void CNovelViewer10Dlg::OnSysCommand(UINT nID, LPARAM lParam)
 			// DX Initalize
 			if (nvc.NVUseDirectX) {
 				nvD3DX.SetFont( nvc.NVfont, nvc.NVfontSize, nvc.NVfontColor, nvc.NVBackColor );
+				nvD3DX.OnResize();	// reset device
 				int r = nvD3DX.InitalizeDevice(m_hWnd);
 				if (!r)
 					AfxMessageBox(L"Failed to Initalize DirectX");
@@ -251,6 +252,7 @@ void CNovelViewer10Dlg::OnSysCommand(UINT nID, LPARAM lParam)
 				nvD3DX.ReleaseDevice();
 			}
 
+			nvc.initfontWidth();
 			Invalidate(FALSE);
 		}
 	}
@@ -276,36 +278,17 @@ void CNovelViewer10Dlg::OnPaint()
 	mBitmap.CreateCompatibleBitmap(&dc, nvc.scr_wid, nvc.scr_hei);
 	mDC.SelectObject(&mBitmap);
 
-	if (nvD3DX.isInitalized()) {
+	/*if (nvD3DX.isInitalized()) {
 		// use DirectX
 		nvc.drawTextDX(&mDC, &mBitmap, &nvD3DX);
-	} else {
+	} else {*/
 		// use GDI
+	if (!nvD3DX.isInitalized()) {
 		nvc.drawText(&mDC, &mBitmap);
 		dc.BitBlt(0, 0, nvc.scr_wid, nvc.scr_hei, &mDC, 0, 0, SRCCOPY);
 	}
+	//}
 
-	if (IsIconic())
-	{
-		 // device context for painting
-
-		SendMessage(WM_ICONERASEBKGND, (WPARAM) dc.GetSafeHdc(), 0);
-
-		// Center icon in client rectangle
-		int cxIcon = GetSystemMetrics(SM_CXICON);
-		int cyIcon = GetSystemMetrics(SM_CYICON);
-		CRect rect;
-		GetClientRect(&rect);
-		int x = (rect.Width() - cxIcon + 1) / 2;
-		int y = (rect.Height() - cyIcon + 1) / 2;
-
-		// Draw the icon
-		dc.DrawIcon(x, y, m_hIcon);
-	}
-	else
-	{
-		CDialog::OnPaint();
-	}
 }
 
 // The system calls this to obtain the cursor to display while the user drags
@@ -430,8 +413,8 @@ void CNovelViewer10Dlg::OnTimer(UINT nIDEvent)
 			if(goalOffset==0) KillTimer(NULL);
 		}
 	}
-
-	Invalidate(FALSE);
+	
+	vaildateWnd();
 
 	CDialog::OnTimer(nIDEvent);
 }
@@ -463,7 +446,7 @@ void CNovelViewer10Dlg::OnMouseMove(UINT nFlags, CPoint point)
 			break;
 		}
 	
-		Invalidate(FALSE);
+		vaildateWnd();
 	}
 
 	if (nvc.scr_wid - point.x<30){
@@ -518,6 +501,8 @@ void CNovelViewer10Dlg::OnLButtonUp(UINT nFlags, CPoint point)
 	isMoving = false;
 	
 	nvc.OnLbtnup(point);
+	vaildateWnd(); // refresh
+
 	CDialog::OnLButtonUp(nFlags, point);
 }
 
@@ -587,14 +572,14 @@ void CNovelViewer10Dlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBa
 	case SB_THUMBTRACK:
 	case SB_THUMBPOSITION :
 		m_pos = scrollInfo.nTrackPos;
-		Invalidate(FALSE);
+		vaildateWnd();
 		break;
 	case SB_ENDSCROLL:
 		/* 있으나 없으나 큰 상관이..*/
 		// 스크롤 끝
 		//nvc.nowPos = m_pos = nPos;
 		isScrolling = false;
-		Invalidate(FALSE);
+		vaildateWnd();
 		return;
 	}
 
@@ -602,7 +587,7 @@ void CNovelViewer10Dlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBa
 	else if ( m_pos < 0 ) m_pos = 0;
  
 	nvc.nowPos = m_pos;
-	Invalidate(FALSE);
+	vaildateWnd();
 	SetScrollPos(1, m_pos);
 
 	CDialog::OnVScroll(nSBCode, nPos, pScrollBar);
@@ -636,7 +621,7 @@ BOOL CNovelViewer10Dlg::PreTranslateMessage(MSG* pMsg)
 			TCHAR buf[255];
 			wcscpy(buf, dlg.GetPathName().GetBuffer(0));
 			nvc.readTxtFile(buf);
-			Invalidate(FALSE);
+			vaildateWnd();
 		}
 
 		pMsg->message = 0;
@@ -766,7 +751,7 @@ void CNovelViewer10Dlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				AfxMessageBox(L"문자열을 찾을 수 없습니다.");
 			} else {
 				nvc.nowPos = i;
-				Invalidate(FALSE);
+				vaildateWnd();
 			}
 		}
 	}
@@ -784,7 +769,7 @@ void CNovelViewer10Dlg::moveNext()
 {
 	if (nvc.nowPos >= nvc.finPos) {
 		nvc.searchfile(false);
-		Invalidate(FALSE);
+		vaildateWnd();
 	} else {
 		switch (nvc.NVScrolltype) {
 		case 0:	// 가로스크롤
@@ -797,11 +782,11 @@ void CNovelViewer10Dlg::moveNext()
 			break;
 		case 2:
 			nvc.nowPos += nvc.nextlineChar(GetDesktopWindow()->GetDC(), nvc.nowPos);
-			Invalidate(FALSE);
+			vaildateWnd();
 			return;
 		case 3:
 			nvc.nowPos += nvc.nextpageChar(GetDesktopWindow()->GetDC(), nvc.nowPos);
-			Invalidate(FALSE);
+			vaildateWnd();
 			return;
 		}
 		SetTimer(NULL, 30, NULL);
@@ -812,7 +797,7 @@ void CNovelViewer10Dlg::movePrev()
 {
 	if (nvc.nowPos == 0) {
 		nvc.searchfile(true);
-		Invalidate(FALSE);
+			vaildateWnd();
 	} else {
 		switch (nvc.NVScrolltype) {
 		case 0:	// 가로스크롤
@@ -825,13 +810,24 @@ void CNovelViewer10Dlg::movePrev()
 			break;
 		case 2:
 			nvc.nowPos -= nvc.prevlineChar(GetDesktopWindow()->GetDC(), nvc.nowPos);
-			Invalidate(FALSE);
+			vaildateWnd();
 			return;
 		case 3:
 			nvc.nowPos -= nvc.prevpageChar(GetDesktopWindow()->GetDC(), nvc.nowPos);
-			Invalidate(FALSE);
+			vaildateWnd();
 			return;
 		}
 		SetTimer(NULL, 30, NULL);
+	}
+}
+
+void CNovelViewer10Dlg::vaildateWnd() {
+	if (nvD3DX.isInitalized()) {
+		CDC pDC;
+		pDC.CreateCompatibleDC(this->GetDC());
+		CBitmap mBitmap;
+		nvc.drawTextDX(&pDC, &mBitmap, &nvD3DX);
+	} else {
+		Invalidate(FALSE);
 	}
 }
